@@ -46,16 +46,16 @@ public class BitmapDispatcher extends Thread {
     }
 
     private void showImageView(final BitmapRequest br, final Bitmap bitmap) {
-        if(bitmap!=null&&br.getImageView()!=null&&br.getUrlMd5().equals(br.getImageView().getTag())){
-            final ImageView imageView=br.getImageView();
+        if (bitmap != null && br.getImageView() != null && br.getUrlMd5().equals(br.getImageView().getTag())) {
+            final ImageView imageView = br.getImageView();
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    imageView.setImageBitmap(bitmap);
-                    if(br.getRequestListener()!=null){
+                    if (br.getRequestListener() != null) {
                         RequestListener requestListener = br.getRequestListener();
                         requestListener.onSuccess(bitmap);
                     }
+                    imageView.setImageBitmap(bitmap);
                 }
             });
         }

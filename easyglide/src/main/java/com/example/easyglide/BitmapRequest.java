@@ -28,34 +28,36 @@ public class BitmapRequest {
     private Context context;
 
     //设置上下文
-    public BitmapRequest(Context context){
-        this.context=context;
+    public BitmapRequest(Context context) {
+        this.context = context;
     }
 
     //设置图片加载地址
-    public BitmapRequest load(String url){
-        this.url=url;
+    public BitmapRequest load(String url) {
+        this.url = url;
+        this.urlMd5 = MD5Utils.toMD5(url);
         return this;
     }
 
     //设置预加载图片
-    public BitmapRequest loading(int resId){
-        this.resId=resId;
+    public BitmapRequest loading(int resId) {
+        this.resId = resId;
         return this;
     }
 
     //设置监听
-    public BitmapRequest listener(RequestListener listener){
-        this.requestListener=listener;
+    public BitmapRequest listener(RequestListener listener) {
+        this.requestListener = listener;
         return this;
     }
 
     //加载图片
-    public void into(ImageView imageView){
+    public void into(ImageView imageView) {
         imageView.setTag(this.urlMd5);
-        this.imageView=new SoftReference<>(imageView);
+        this.imageView = new SoftReference<>(imageView);
 
         //将图片请求添加到请求队列
+        RequestManager.getInstance().addBitmapRequest(this);
     }
 
     public String getUrl() {
