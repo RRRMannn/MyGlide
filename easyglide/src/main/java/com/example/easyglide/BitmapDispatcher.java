@@ -2,10 +2,12 @@ package com.example.easyglide;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,6 +65,8 @@ public class BitmapDispatcher extends Thread {
 
     private Bitmap findBitmap(BitmapRequest br) {
         Bitmap bitmap = downloadBitmap(br.getUrl());
+        RequestManager.getInstance().bitmap2MemoryCache(br.getUrlMd5(), bitmap);
+        RequestManager.getInstance().bitmap2DiskCache(br.getUrlMd5() + ".png", bitmap);
         return bitmap;
     }
 

@@ -1,10 +1,15 @@
 package com.example.easyglide;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.widget.ImageView;
 
 import java.lang.ref.SoftReference;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
 
 //单个图片请求
 public class BitmapRequest {
@@ -24,7 +29,7 @@ public class BitmapRequest {
     //回调对象
     private RequestListener requestListener;
 
-
+    //上下文
     private Context context;
 
     //设置上下文
@@ -58,6 +63,7 @@ public class BitmapRequest {
 
         //将图片请求添加到请求队列
         RequestManager.getInstance().addBitmapRequest(this);
+
     }
 
     public String getUrl() {

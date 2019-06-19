@@ -1,6 +1,7 @@
 package com.example.myglide;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -69,8 +70,16 @@ public class MyRecycleAdapter extends RecyclerView.Adapter<MyRecycleAdapter.MyHo
      *操作Item的地方
      */
     @Override
-    public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
+    public void onBindViewHolder(@NonNull final MyHolder myHolder, int i) {
         myHolder.textView.setText(portfolios.get(i).getProjectName());
+        myHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setClass(myHolder.context,Main2Activity.class);
+                myHolder.context.startActivity(intent);
+            }
+        });
         MyGlide.with(myHolder.context).load("http://120.78.148.54/images/portfolio/"+portfolios.get(i).getImgPath()).listener(new RequestListener() {
             @Override
             public boolean onSuccess(Bitmap bitmap) {
@@ -80,6 +89,7 @@ public class MyRecycleAdapter extends RecyclerView.Adapter<MyRecycleAdapter.MyHo
 
             @Override
             public boolean onFailure() {
+                Log.e("MyRecycleAdapter>>>>","获取图片失败！");
                 return false;
             }
         }).into(myHolder.imageView);
